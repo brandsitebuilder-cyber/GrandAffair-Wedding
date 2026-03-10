@@ -5,16 +5,21 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export default function MusicPlayer() {
   const [playing, setPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [userManuallyToggled, setUserManuallyToggled] = useState(false);
+  const playerRef = useRef<any>(null);
 
   useEffect(() => {
     const handleFirstInteraction = () => {
-      if (!userManuallyToggled) {
-        setIsMuted(false);
+      if (!hasInteracted) {
         setPlaying(true);
+        if (playerRef.current) {
+          const internalPlayer = playerRef.current.getInternalPlayer();
+          if (internalPlayer && typeof internalPlayer.playVideo === 'function') {
+            internalPlayer.playVideo();
+          }
+        }
       }
+      
       window.removeEventListener('click', handleFirstInteraction);
       window.removeEventListener('touchstart', handleFirstInteraction);
       window.removeEventListener('scroll', handleFirstInteraction);
@@ -32,36 +37,28 @@ export default function MusicPlayer() {
       window.removeEventListener('scroll', handleFirstInteraction);
       window.removeEventListener('keydown', handleFirstInteraction);
     };
-  }, [userManuallyToggled]);
+  }, [hasInteracted]);
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
-    
-    if (isMuted) {
-      setIsMuted(false);
-      setPlaying(true);
-    } else {
-      setPlaying(!playing);
-    }
-    
+    setPlaying(!playing);
     setHasInteracted(true);
-    setUserManuallyToggled(true);
   };
-
-  const isAudioActive = playing && !isMuted;
 
   return (
     <>
       <div className="fixed top-0 left-0 w-0 h-0 opacity-0 pointer-events-none overflow-hidden -z-50">
         <ReactPlayer
+          ref={playerRef}
           src="https://youtu.be/4Wxi4sVCeo0?list=RD4Wxi4sVCeo0"
           playing={playing}
-          muted={isMuted}
           loop={true}
           volume={0.5}
           width="10px"
           height="10px"
           playsInline={true}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
         />
       </div>
 
@@ -72,9 +69,9 @@ export default function MusicPlayer() {
           transition={{ duration: 0.5, delay: 1 }}
           onClick={togglePlay}
           className="fixed bottom-6 left-6 md:bottom-8 md:left-8 z-[9999] flex items-center justify-center w-12 h-12 rounded-full bg-brand-bg border border-brand-accent text-brand-accent shadow-lg hover:bg-brand-accent hover:text-brand-bg transition-all duration-300 group"
-          aria-label={isAudioActive ? "Pause background music" : "Play background music"}
+          aria-label={playing ? "Pause background music" : "Play background music"}
         >
-          {isAudioActive ? (
+          {playing ? (
             <Volume2 className="w-5 h-5" />
           ) : (
             <VolumeX className="w-5 h-5" />
@@ -83,7 +80,7 @@ export default function MusicPlayer() {
           {/* Tooltip */}
           {!hasInteracted && (
             <span className="absolute left-full ml-4 whitespace-nowrap bg-brand-bg border border-brand-accent/30 text-brand-text text-xs uppercase tracking-widest px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              {isAudioActive ? "Pause Music" : "Play Music"}
+              {playing ? "Pause Music" : "Play Music"}
             </span>
           )}
         </motion.button>
