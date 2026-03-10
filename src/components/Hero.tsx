@@ -14,7 +14,7 @@ export default function Hero() {
         <img 
           src={images.hero} 
           alt="Ané & Lourens" 
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-top"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-black/20" />
