@@ -57,7 +57,7 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-0 h-0 opacity-0 pointer-events-none overflow-hidden -z-50">
+      <div className="fixed -top-[10000px] -left-[10000px] w-[200px] h-[200px] opacity-0 pointer-events-none overflow-hidden -z-50">
         <ReactPlayer
           ref={playerRef}
           src="https://youtu.be/4Wxi4sVCeo0?list=RD4Wxi4sVCeo0"
@@ -65,8 +65,8 @@ export default function MusicPlayer() {
           muted={isMuted}
           loop={true}
           volume={0.5}
-          width="10px"
-          height="10px"
+          width="200px"
+          height="200px"
           playsInline={true}
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
