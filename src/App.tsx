@@ -16,12 +16,14 @@ import Accommodation from './components/Accommodation';
 import FAQ from './components/FAQ';
 import Gallery from './components/Gallery';
 import Footer from './components/Footer';
+import MusicPlayer from './components/MusicPlayer';
 
 export default function App() {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-brand-bg text-brand-text font-sans selection:bg-brand-accent/30">
         <Navbar />
+        <MusicPlayer />
         <main>
           <Hero />
           <OurStory />

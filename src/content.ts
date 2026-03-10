@@ -10,7 +10,8 @@ export const content = {
       dressCode: "Dress Code & RSVP",
       registry: "Registry",
       accommodation: "Accommodation",
-      faq: "FAQ"
+      faq: "FAQ",
+      gallery: "Gallery"
     },
     hero: {
       names: "Ané Havenga & Lourens Els",
@@ -175,7 +176,8 @@ export const content = {
       dressCode: "Kleredrag & RSVP",
       registry: "Geskenkregister",
       accommodation: "Akkommodasie",
-      faq: "Gereelde Vrae"
+      faq: "Gereelde Vrae",
+      gallery: "Galery"
     },
     hero: {
       names: "Ané Havenga & Lourens Els",
