@@ -73,7 +73,9 @@ export const content = {
         dietary: "Dietary Requirements",
         message: "Message for the Couple",
         submit: "Submit RSVP",
-        duplicateError: "It looks like you've already RSVP'd with this number!"
+        duplicateError: "It looks like you've already RSVP'd with this number!",
+        networkError: "Failed to connect to the server. Please check your connection.",
+        genericError: "Something went wrong. Please try again later."
       }
     },
     accommodation: {
@@ -252,7 +254,9 @@ export const content = {
         dietary: "Dieetvereistes",
         message: "Boodskap vir die Paartjie",
         submit: "Dien RSVP in",
-        duplicateError: "Dit lyk of jy reeds met hierdie nommer RSVP'd het!"
+        duplicateError: "Dit lyk of jy reeds met hierdie nommer RSVP'd het!",
+        networkError: "Kon nie aan die bediener koppel nie. Gaan asseblief u verbinding na.",
+        genericError: "Iets het foutgegaan. Probeer asseblief later weer."
       }
     },
     accommodation: {

@@ -28,16 +28,26 @@ export default function DetailsRSVP() {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || 'Something went wrong.');
-        return;
+      // Check if the response is JSON before reading it
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const data = await response.json();
+        if (!response.ok) {
+          setError(data.error || t.form.genericError);
+          return;
+        }
+      } else {
+        // Handle non-JSON responses (like 404 or 500 HTML pages)
+        if (!response.ok) {
+          setError(t.form.networkError);
+          return;
+        }
       }
 
       setIsSubmitted(true);
     } catch (err) {
-      setError('Failed to connect to the server.');
+      console.error("RSVP Error:", err);
+      setError(t.form.networkError);
     }
   };
 
