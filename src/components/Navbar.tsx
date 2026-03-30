@@ -26,29 +26,36 @@ export default function Navbar() {
     { name: t.invitation, to: '/', hash: '#invitation' },
     { name: t.schedule, to: '/', hash: '#schedule' },
     { name: t.dressCode, to: '/', hash: '#details' },
-    { name: t.accommodation, to: '/details', hash: '' },
-    { name: t.thingsToDo, to: '/details', hash: '' },
-    { name: t.faq, to: '/details', hash: '' },
+    { name: t.accommodation, to: '/details', hash: '#accommodation' },
+    { name: t.thingsToDo, to: '/details', hash: '#things-to-do' },
+    { name: t.faq, to: '/details', hash: '#faq' },
   ];
 
   const handleNavClick = (to: string, hash: string) => {
     setIsMobileMenuOpen(false);
-    if (location.pathname === to && hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else if (hash) {
-      navigate(to);
-      setTimeout(() => {
+    
+    if (location.pathname === to) {
+      if (hash) {
         const element = document.querySelector(hash);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } else {
       navigate(to);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (hash) {
+        // Wait for navigation to complete before scrolling
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
