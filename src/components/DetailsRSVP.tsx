@@ -7,10 +7,43 @@ export default function DetailsRSVP() {
   const { language } = useLanguage();
   const t = content[language].details;
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    cellphone: '',
+    dietary: '',
+    message: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Something went wrong.');
+        return;
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      setError('Failed to connect to the server.');
+    }
+  };
+
+  const handleCellphoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, ''); // Only allow digits
+    setFormData({ ...formData, cellphone: value });
   };
 
   return (
@@ -87,20 +120,59 @@ export default function DetailsRSVP() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-10">
                   <div className="relative">
-                    <input type="text" id="name" required placeholder=" " className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent" />
+                    <input 
+                      type="text" 
+                      id="name" 
+                      required 
+                      placeholder=" " 
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent" 
+                    />
                     <label htmlFor="name" className="absolute left-0 -top-3.5 text-xs uppercase tracking-[0.2em] text-brand-text/50 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-brand-accent">{t.form.name}</label>
+                  </div>
+
+                  <div className="relative">
+                    <input 
+                      type="tel" 
+                      id="cellphone" 
+                      required 
+                      placeholder={t.form.cellphonePlaceholder}
+                      value={formData.cellphone}
+                      onChange={handleCellphoneChange}
+                      className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent" 
+                    />
+                    <label htmlFor="cellphone" className="absolute left-0 -top-3.5 text-xs uppercase tracking-[0.2em] text-brand-text/50 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-brand-accent">{t.form.cellphone}</label>
                   </div>
                   
                   <div className="relative">
-                    <input type="text" id="dietary" placeholder=" " className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent" />
+                    <input 
+                      type="text" 
+                      id="dietary" 
+                      placeholder=" " 
+                      value={formData.dietary}
+                      onChange={(e) => setFormData({ ...formData, dietary: e.target.value })}
+                      className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent" 
+                    />
                     <label htmlFor="dietary" className="absolute left-0 -top-3.5 text-xs uppercase tracking-[0.2em] text-brand-text/50 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-brand-accent">{t.form.dietary}</label>
                   </div>
                   
                   <div className="relative">
-                    <textarea id="message" rows={1} placeholder=" " className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent resize-none"></textarea>
+                    <textarea 
+                      id="message" 
+                      rows={1} 
+                      placeholder=" " 
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="peer w-full border-b border-brand-text/20 bg-transparent py-3 focus:outline-none focus:border-brand-accent transition-colors font-light text-brand-text placeholder-transparent resize-none"
+                    ></textarea>
                     <label htmlFor="message" className="absolute left-0 -top-3.5 text-xs uppercase tracking-[0.2em] text-brand-text/50 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-brand-accent">{t.form.message}</label>
                   </div>
                   
+                  {error && (
+                    <p className="text-red-500 text-xs uppercase tracking-wider text-center">{error}</p>
+                  )}
+
                   <button type="submit" className="w-full border border-brand-accent text-brand-text hover:bg-brand-accent hover:text-white transition-all duration-300 py-4 uppercase tracking-[0.2em] text-xs mt-12">
                     {t.form.submit}
                   </button>

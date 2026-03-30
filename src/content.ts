@@ -67,10 +67,13 @@ export const content = {
       thankYou: "Thank You",
       form: {
         name: "Full Name(s)",
+        cellphone: "Cellphone Number",
+        cellphonePlaceholder: "082 123 4567",
         attending: "Number Attending",
         dietary: "Dietary Requirements",
         message: "Message for the Couple",
-        submit: "Submit RSVP"
+        submit: "Submit RSVP",
+        duplicateError: "It looks like you've already RSVP'd with this number!"
       }
     },
     accommodation: {
@@ -244,9 +247,12 @@ export const content = {
       thankYou: "Dankie",
       form: {
         name: "Volle Naam/Name",
+        cellphone: "Selfoonnommer",
+        cellphonePlaceholder: "082 123 4567",
         dietary: "Dieetvereistes",
         message: "Boodskap vir die Paartjie",
-        submit: "Dien RSVP in"
+        submit: "Dien RSVP in",
+        duplicateError: "Dit lyk of jy reeds met hierdie nommer RSVP'd het!"
       }
     },
     accommodation: {

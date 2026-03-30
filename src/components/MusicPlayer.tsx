@@ -16,7 +16,7 @@ export default function MusicPlayer() {
         setPlaying(true);
         setHasInteracted(true);
         
-        if (playerRef.current) {
+        if (playerRef.current && typeof playerRef.current.getInternalPlayer === 'function') {
           const internalPlayer = playerRef.current.getInternalPlayer();
           if (internalPlayer && typeof internalPlayer.playVideo === 'function') {
             internalPlayer.playVideo();
