@@ -1,6 +1,10 @@
 import express from "express";
 import { google } from "googleapis";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 if (process.env.NODE_ENV !== "production") {
   try {
@@ -127,6 +131,7 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
+    // In production, serve from the dist folder
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
@@ -139,10 +144,4 @@ async function startServer() {
   });
 }
 
-// Export the app for Vercel
-export default app;
-
-// Only start the server if we're not running as a Vercel function
-if (!process.env.VERCEL) {
-  startServer();
-}
+startServer();
