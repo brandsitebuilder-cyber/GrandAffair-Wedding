@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import { google } from "googleapis";
 import path from "path";
 
@@ -13,14 +12,15 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
-app.use(cors({
-  origin: ["https://elsbruilof.co.za", "https://www.elsbruilof.co.za", "http://localhost:3000"],
-  methods: ["GET", "POST"],
-  credentials: true
-}));
 app.use(express.json());
+
+// Logger middleware
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
 // Health check route
 app.get("/api/health", (req, res) => {
@@ -46,7 +46,7 @@ const auth = new google.auth.GoogleAuth({
 const sheets = google.sheets({ version: "v4", auth });
 
 // API routes
-app.post("/api/rsvp", async (req, res) => {
+app.post(["/api/rsvp", "/api/rsvp/"], async (req, res) => {
   const { name, cellphone, dietary, message } = req.body;
 
   if (!name || !cellphone) {
@@ -98,6 +98,11 @@ app.post("/api/rsvp", async (req, res) => {
     console.error("Google Sheets Error:", error);
     res.status(500).json({ error: "Something went wrong. Please try again later." });
   }
+});
+
+// Catch-all for other API routes to return 404 JSON
+app.all("/api/*", (req, res) => {
+  res.status(404).json({ error: `API route not found: ${req.method} ${req.url}` });
 });
 
 // Vite middleware setup
