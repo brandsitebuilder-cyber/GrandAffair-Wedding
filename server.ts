@@ -34,6 +34,18 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Debug route to verify server is reachable
+app.get("/api/debug", (req, res) => {
+  res.json({
+    message: "Server is reachable!",
+    time: new Date().toISOString(),
+    node_env: process.env.NODE_ENV,
+    port: PORT,
+    url: req.url,
+    method: req.method
+  });
+});
+
 // Google Sheets Auth
 const auth = new google.auth.GoogleAuth({
   credentials: {
