@@ -6,15 +6,6 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-if (process.env.NODE_ENV !== "production") {
-  try {
-    const dotenv = await import("dotenv");
-    dotenv.config();
-  } catch (e) {
-    console.warn("dotenv not found, skipping config");
-  }
-}
-
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
