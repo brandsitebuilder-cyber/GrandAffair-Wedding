@@ -50,16 +50,63 @@ app.get("/api/debug", (req, res) => {
   });
 });
 
-// Google Sheets Auth
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n") : undefined,
-  },
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+// Test route for Google Sheets
+app.get("/api/test-sheets", async (req, res) => {
+  try {
+    const sheets = getSheetsClient();
+    const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+    
+    const response = await sheets.spreadsheets.get({
+      spreadsheetId,
+    });
+    
+    res.json({
+      success: true,
+      title: response.data.properties?.title,
+      sheets: response.data.sheets?.map((s: any) => s.properties?.title)
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      code: error.code,
+      details: error.response?.data
+    });
+  }
 });
 
-const sheets = google.sheets({ version: "v4", auth });
+// Helper to get Google Sheets client
+let sheetsClient: any = null;
+
+function getSheetsClient() {
+  if (sheetsClient) return sheetsClient;
+
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  const sheetId = process.env.GOOGLE_SHEET_ID;
+
+  if (!clientEmail || !privateKey || !sheetId) {
+    const missing = [];
+    if (!clientEmail) missing.push("GOOGLE_CLIENT_EMAIL");
+    if (!privateKey) missing.push("GOOGLE_PRIVATE_KEY");
+    if (!sheetId) missing.push("GOOGLE_SHEET_ID");
+    throw new Error(`Missing required environment variables: ${missing.join(", ")}`);
+  }
+
+  // Handle private key formatting
+  const formattedKey = privateKey.replace(/\\n/g, "\n").replace(/^"(.*)"$/, "$1");
+
+  const auth = new google.auth.GoogleAuth({
+    credentials: {
+      client_email: clientEmail,
+      private_key: formattedKey,
+    },
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  sheetsClient = google.sheets({ version: "v4", auth });
+  return sheetsClient;
+}
 
 // API routes
 app.post(["/api/rsvp", "/api/rsvp/"], async (req, res) => {
@@ -73,6 +120,7 @@ app.post(["/api/rsvp", "/api/rsvp/"], async (req, res) => {
   const cleanCellphone = cellphone.toString().replace(/\s/g, "");
 
   try {
+    const sheets = getSheetsClient();
     const spreadsheetId = process.env.GOOGLE_SHEET_ID;
     if (!spreadsheetId) {
       throw new Error("GOOGLE_SHEET_ID is not configured.");
@@ -112,7 +160,16 @@ app.post(["/api/rsvp", "/api/rsvp/"], async (req, res) => {
     res.status(200).json({ message: "Thank you for your RSVP!" });
   } catch (error: any) {
     console.error("Google Sheets Error:", error);
-    res.status(500).json({ error: "Something went wrong. Please try again later." });
+    // Return more details for debugging in production temporarily
+    res.status(500).json({ 
+      error: "Something went wrong. Please try again later.",
+      details: process.env.NODE_ENV === "production" ? undefined : error.message,
+      debug: {
+        message: error.message,
+        stack: error.stack,
+        code: error.code
+      }
+    });
   }
 });
 
