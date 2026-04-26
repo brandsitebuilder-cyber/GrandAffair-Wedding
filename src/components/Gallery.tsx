@@ -1,86 +1,117 @@
 import React from 'react';
-import { useLanguage } from '../LanguageContext';
-import { content } from '../content';
-import { motion } from 'motion/react';
+
+const galleryImages = [
+  {
+    url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop',
+    alt: 'Couple silhouette sunset',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop',
+    alt: 'Engagement rings',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1529636798458-92182e662485?q=80&w=2069&auto=format&fit=crop',
+    alt: 'Wedding details',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop',
+    alt: 'Ballroom',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=2070&auto=format&fit=crop',
+    alt: 'Bouquet',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1415025148099-17fe74102b28?q=80&w=2074&auto=format&fit=crop',
+    alt: 'Romantic dinner',
+  },
+];
 
 export default function Gallery() {
-  const { language } = useLanguage();
-  const t = content[language].gallery;
-
-  const galleryImages = [
-    "https://drive.google.com/thumbnail?id=1sz67Qtxr0pcStWZ8YALxl4_Y3DjNjYwH&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1sZPD11696Z7w3johpbZ1-_9N6iM-TcFl&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1n3mpQNLxoudHwuPdda-sipkJyOJueP8b&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1ZJ5xP93qyMdntUbPlQQZlITTFZipifLT&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1Kc27A5dpUxm0g0ejaJgOu2x5uyzIPEKY&sz=w1000",
-    "https://drive.google.com/thumbnail?id=15nwNbZlvVfg8KPlAh2_rKRRffugFw6FF&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1-ubc2_Ua5yLUDJMKw4vIsVJxx4W51l7v&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1sXK_B9BkMi8q6c8jSp5FrdC_XhuYnvo3&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1hn94cvDdF84uBaOw3Lt2Hzgab6fUhcYc&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1XF25Ncsuv6f_5avdWcin7sD3abH7FDv0&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1U84HDFdvwBkAIxO5gVVi-mBSzA8RbzyA&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1Tn1pEPiXAT-PYpz0t7yfRskZLc7B36KV&sz=w1000",
-    "https://drive.google.com/thumbnail?id=1C7Ol3ZUKJTL0kfS0uwXN02GbEHTiBxg8&sz=w1000",
-    "https://drive.google.com/thumbnail?id=144qGJiY4hW52MlkRUF44ztuF0F5w-Fn1&sz=w1000"
-  ];
-
   return (
-    <section id="gallery" className="py-32 md:py-48 bg-brand-bg text-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="mb-24"
-        >
-          <h3 className="font-[Pinyon_Script] text-4xl md:text-5xl text-brand-accent mb-4">
-            {t.subtitle}
-          </h3>
-          <h2 className="font-serif text-4xl md:text-6xl text-brand-text uppercase tracking-[0.15em] mb-8">
-            {t.title}
+    <section
+      id="gallery"
+      style={{
+        background: '#ffffff',
+        paddingTop: 'clamp(4rem, 8vw, 7rem)',
+        paddingBottom: 'clamp(4rem, 8vw, 7rem)',
+      }}
+    >
+      <div
+        style={{
+          paddingLeft: 'clamp(1.5rem, 5vw, 3rem)',
+          paddingRight: 'clamp(1.5rem, 5vw, 3rem)',
+          maxWidth: '1200px',
+          margin: '0 auto',
+        }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}>
+          <p
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: '0.85rem',
+              fontWeight: 300,
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+              color: '#C9A95C',
+              marginBottom: '0.5rem',
+            }}
+          >
+            Moments
+          </p>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontStyle: 'italic',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              color: '#0a1628',
+              margin: 0,
+            }}
+          >
+            Gallery
           </h2>
-          <div className="w-px h-16 bg-brand-accent/50 mx-auto"></div>
-        </motion.div>
+          <div
+            style={{
+              width: '40px',
+              height: '1px',
+              background: '#C9A95C',
+              margin: '1rem auto 0',
+            }}
+          />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
-          {galleryImages.map((src, i) => {
-            // Create an asymmetrical layout
-            let colSpan = "md:col-span-6";
-            let marginTop = "";
-            
-            const patternIndex = i % 4;
-            
-            if (patternIndex === 0) {
-              colSpan = "md:col-span-5 md:col-start-2";
-            } else if (patternIndex === 1) {
-              colSpan = "md:col-span-4 md:col-start-8";
-              marginTop = "md:mt-32";
-            } else if (patternIndex === 2) {
-              colSpan = "md:col-span-6 md:col-start-1";
-            } else if (patternIndex === 3) {
-              colSpan = "md:col-span-4 md:col-start-8";
-              marginTop = "md:-mt-32";
-            }
-
-            return (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: (i % 4) * 0.2 }}
-                className={`${colSpan} ${marginTop} overflow-hidden`}
-              >
-                <img 
-                  src={src} 
-                  alt={`Gallery ${i + 1}`} 
-                  className="w-full h-auto hover:scale-105 transition-transform duration-1000 ease-out"
-                  referrerPolicy="no-referrer"
-                />
-              </motion.div>
-            );
-          })}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '1rem',
+          }}
+        >
+          {galleryImages.map((img, index) => (
+            <div
+              key={index}
+              style={{
+                overflow: 'hidden',
+                boxShadow: '0 4px 20px rgba(10, 22, 40, 0.08)',
+                aspectRatio: index === 0 ? '16/10' : '4/3',
+              }}
+            >
+              <img
+                src={img.url}
+                alt={img.alt}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  transition: 'transform 0.5s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

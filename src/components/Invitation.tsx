@@ -1,71 +1,180 @@
 import React from 'react';
-import { useLanguage } from '../LanguageContext';
-import { content } from '../content';
-import { motion } from 'motion/react';
 
-export default function Invitation() {
-  const { language } = useLanguage();
-  const t = content[language].invitation;
-
+export default function InvitationCard() {
   return (
-    <section id="invitation" className="py-32 md:py-48 bg-brand-bg text-center relative overflow-hidden">
-      <div className="absolute inset-0 flex justify-center items-center opacity-[0.03] pointer-events-none">
-        <span className="font-serif text-[40vw] text-brand-text leading-none select-none">A&L</span>
-      </div>
-      
-      <motion.div 
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+    <section
+      id="invitation"
+      style={{
+        background: '#ffffff',
+        paddingTop: 'clamp(4rem, 8vw, 7rem)',
+        paddingBottom: 'clamp(4rem, 8vw, 7rem)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          paddingLeft: 'clamp(1.5rem, 5vw, 3rem)',
+          paddingRight: 'clamp(1.5rem, 5vw, 3rem)',
+          maxWidth: '800px',
+          width: '100%',
+        }}
       >
-        <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-brand-text/60 mb-16">
-          {t.intro}
-        </p>
-        
-        <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-brand-text mb-12 uppercase tracking-[0.15em] leading-tight">
-          {t.names.split('&').map((name, i) => (
-            <React.Fragment key={name}>
-              {name.trim()}
-              {i === 0 && <span className="block text-3xl md:text-5xl my-6 font-[Pinyon_Script] text-brand-accent normal-case tracking-normal">&</span>}
-            </React.Fragment>
-          ))}
-        </h2>
-        
-        <p className="text-sm md:text-base uppercase tracking-[0.3em] text-brand-text mb-20 font-light">
-          {t.action}
-        </p>
-        
-        <div className="w-px h-24 bg-brand-accent/50 mx-auto mb-20"></div>
-        
-        <p className="text-lg md:text-xl font-light text-brand-text/80 mb-20 leading-[2] max-w-2xl mx-auto">
-          {t.message}
-        </p>
-        
-        <div className="space-y-6 mb-20">
-          <p className="text-sm md:text-base uppercase tracking-[0.3em] font-light text-brand-text">
-            {t.datetime}
+        <div
+          style={{
+            background: '#ffffff',
+            border: '1px solid rgba(201, 169, 92, 0.2)',
+            boxShadow: '0 20px 60px rgba(10, 22, 40, 0.08), 0 4px 16px rgba(0,0,0,0.04)',
+            padding: 'clamp(2.5rem, 5vw, 4rem)',
+            position: 'relative',
+          }}
+        >
+          {/* Decorative gold lines */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              marginBottom: '2rem',
+            }}
+          >
+            <div style={{ flex: 1, height: '1px', background: '#C9A95C' }} />
+            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#C9A95C' }} />
+            <div style={{ flex: 1, height: '1px', background: '#C9A95C' }} />
+          </div>
+
+          <p
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: '0.8rem',
+              color: '#0a1628',
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              textAlign: 'center',
+              marginBottom: '0.75rem',
+            }}
+          >
+            With hearts full of love and gratitude, together with their families,
           </p>
-          <p className="text-sm md:text-base uppercase tracking-[0.3em] font-light text-brand-text/70">
-            {t.venue}
+
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontStyle: 'italic',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              color: '#0a1628',
+              textAlign: 'center',
+              margin: '1rem 0',
+              lineHeight: 1.2,
+            }}
+          >
+            Alexander Brookes
+            <span style={{ color: '#C9A95C', fontStyle: 'normal' }}> & </span>
+            Victoria Sinclair
+          </h2>
+
+          <p
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: '0.85rem',
+              color: '#0a1628',
+              textAlign: 'center',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              marginBottom: '2rem',
+            }}
+          >
+            Request the honor of your presence
           </p>
-          <p className="text-sm md:text-base uppercase tracking-[0.3em] font-light text-brand-text/70 pt-4">
-            {t.attire}
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              marginBottom: '2rem',
+            }}
+          >
+            <div style={{ flex: 1, height: '1px', background: '#C9A95C', opacity: 0.4 }} />
+            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#C9A95C', opacity: 0.6 }} />
+            <div style={{ flex: 1, height: '1px', background: '#C9A95C', opacity: 0.4 }} />
+          </div>
+
+          <p
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: '0.95rem',
+              color: 'rgba(10, 22, 40, 0.75)',
+              textAlign: 'center',
+              lineHeight: 1.7,
+              maxWidth: '560px',
+              margin: '0 auto 2rem',
+            }}
+          >
+            We invite you to join us as we exchange our vows and begin our forever. Your presence at our wedding will make this celebration whole.
+          </p>
+
+          <div
+            style={{
+              textAlign: 'center',
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: '0.9rem',
+              color: '#0a1628',
+              lineHeight: 1.8,
+            }}
+          >
+            <p style={{ margin: 0 }}><strong style={{ fontWeight: 400 }}>Saturday, 12 June 2027</strong> at 17:00</p>
+            <p style={{ margin: '0.25rem 0', color: 'rgba(10,22,40,0.6)' }}>Mount Nelson Hotel · Cape Town</p>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              marginTop: '2rem',
+            }}
+          >
+            <div style={{ flex: 1, height: '1px', background: '#C9A95C', opacity: 0.4 }} />
+            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#C9A95C', opacity: 0.6 }} />
+            <div style={{ flex: 1, height: '1px', background: '#C9A95C', opacity: 0.4 }} />
+          </div>
+
+          <p
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 300,
+              fontSize: '0.85rem',
+              color: '#C9A95C',
+              textAlign: 'center',
+              marginTop: '1.5rem',
+              letterSpacing: '0.1em',
+            }}
+          >
+            Black Tie Attire
+          </p>
+
+          <p
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontStyle: 'italic',
+              fontSize: '0.95rem',
+              color: 'rgba(10, 22, 40, 0.55)',
+              textAlign: 'center',
+              marginTop: '1rem',
+            }}
+          >
+            We look forward to celebrating with you
           </p>
         </div>
-        
-        <p className="text-2xl md:text-3xl font-[Pinyon_Script] text-brand-text/80 mb-20">
-          {t.closing}
-        </p>
-        
-        <a 
-          href="#details" 
-          className="inline-block border border-brand-accent text-brand-text hover:bg-brand-accent hover:text-white transition-all duration-300 px-12 py-4 uppercase tracking-[0.2em] text-xs"
-        >
-          {language === 'en' ? 'Details & RSVP' : 'Besonderhede & RSVP'}
-        </a>
-      </motion.div>
+      </div>
     </section>
   );
 }

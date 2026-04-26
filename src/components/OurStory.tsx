@@ -1,58 +1,162 @@
 import React from 'react';
-import { useLanguage } from '../LanguageContext';
-import { content } from '../content';
-import { images } from '../assets';
-import { motion } from 'motion/react';
+
+const chapters = [
+  {
+    title: 'The Meeting',
+    subtitle: 'Gala Fundraiser · Winter 2025',
+    description:
+      'It began under the glittering chandeliers of a Cape Town ballroom. Alexander, a visionary entrepreneur, was the evening\'s keynote speaker. Victoria, a passionate philanthropist, was radiant in a floor-length gown. Their eyes met across the room, and a simple conversation became an all-night dance.',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop',
+  },
+  {
+    title: 'The First Date',
+    subtitle: 'Bree Street · Cape Town',
+    description:
+      'What started as coffee at a small Bree Street café turned into hours of laughter, shared dreams, and a sunset stroll along the Sea Point promenade. They discovered a connection neither could deny — an effortless rhythm that felt like coming home.',
+    image: 'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?q=80&w=1974&auto=format&fit=crop',
+  },
+  {
+    title: 'The Proposal',
+    subtitle: 'Chapman\'s Peak · March 2026',
+    description:
+      'Atop Chapman\'s Peak Drive with the Atlantic Ocean glittering below, Alexander dropped to one knee as the sun set in a blaze of orange and gold. Victoria\'s tearful "yes" echoed across the cliffs — the beginning of their forever.',
+    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=2069&auto=format&fit=crop',
+  },
+];
 
 export default function OurStory() {
-  const { language } = useLanguage();
-  const t = content[language].story;
-
   return (
-    <section id="story" className="py-32 md:py-48 bg-brand-fill">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="lg:col-span-6 relative"
+    <section
+      id="story"
+      style={{
+        background: '#0a1628',
+        paddingTop: 'clamp(4rem, 8vw, 7rem)',
+        paddingBottom: 'clamp(4rem, 8vw, 7rem)',
+      }}
+    >
+      <div
+        style={{
+          paddingLeft: 'clamp(1.5rem, 5vw, 3rem)',
+          paddingRight: 'clamp(1.5rem, 5vw, 3rem)',
+          maxWidth: '1100px',
+          margin: '0 auto',
+        }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: 'clamp(3rem, 6vw, 5rem)' }}>
+          <p
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: '0.85rem',
+              fontWeight: 300,
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+              color: '#C9A95C',
+              marginBottom: '0.5rem',
+            }}
           >
-            <div className="aspect-[3/4] overflow-hidden">
-              <img 
-                src={images.story} 
-                alt="Our Story" 
-                className="w-full h-full object-cover object-center"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-          </motion.div>
+            The Beginning
+          </p>
+          <h2
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 300,
+              fontStyle: 'italic',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              color: '#ffffff',
+              margin: 0,
+            }}
+          >
+            Our Story
+          </h2>
+          <div
+            style={{
+              width: '40px',
+              height: '1px',
+              background: '#C9A95C',
+              margin: '1rem auto 0',
+            }}
+          />
+        </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="lg:col-span-6 space-y-12 flex flex-col items-center"
-          >
-            <div className="text-center">
-              <h3 className="font-[Pinyon_Script] text-4xl md:text-5xl text-brand-accent mb-4">
-                {t.subtitle}
-              </h3>
-              <h2 className="font-serif text-4xl md:text-6xl text-brand-text uppercase tracking-[0.15em] mb-8">
-                {t.title}
-              </h2>
-              <div className="w-12 h-[1px] bg-brand-accent mx-auto mb-12"></div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+          {chapters.map((chapter, index) => (
+            <div
+              key={index}
+              style={{
+                display: 'flex',
+                flexDirection: index % 2 === 0 ? 'row' : 'row-reverse',
+                gap: '2rem',
+                alignItems: 'center',
+                background: 'rgba(15, 31, 58, 0.6)',
+                border: '1px solid rgba(201, 169, 92, 0.1)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ flex: 1, minHeight: '300px', overflow: 'hidden' }}>
+                <img
+                  src={chapter.image}
+                  alt={chapter.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                    minHeight: '300px',
+                  }}
+                />
+              </div>
+              <div style={{ flex: 1, padding: 'clamp(1.5rem, 3vw, 2.5rem)' }}>
+                <p
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: '0.8rem',
+                    color: '#C9A95C',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  Chapter {index + 1}
+                </p>
+                <h3
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontWeight: 300,
+                    fontStyle: 'italic',
+                    fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+                    color: '#ffffff',
+                    margin: '0 0 0.25rem',
+                  }}
+                >
+                  {chapter.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 300,
+                    fontSize: '0.8rem',
+                    color: 'rgba(247, 232, 208, 0.6)',
+                    letterSpacing: '0.05em',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  {chapter.subtitle}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 300,
+                    fontSize: '0.9rem',
+                    color: 'rgba(247, 232, 208, 0.8)',
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {chapter.description}
+                </p>
+              </div>
             </div>
-            
-            <div className="space-y-8 text-brand-text/70 leading-[2] font-light text-sm md:text-base tracking-wide text-justify [text-align-last:center]">
-              <p>{t.p1}</p>
-              <p>{t.p2}</p>
-              <p>{t.p3}</p>
-              <p className="font-serif italic text-brand-text text-lg text-center">{t.p4}</p>
-            </div>
-          </motion.div>
+          ))}
         </div>
       </div>
     </section>

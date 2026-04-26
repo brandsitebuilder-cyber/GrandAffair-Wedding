@@ -1,108 +1,141 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useLanguage } from '../LanguageContext';
-import { content } from '../content';
-import { Menu, X } from 'lucide-react';
+
+const navLinks = [
+  { name: 'Home', href: '#hero' },
+  { name: 'Invitation', href: '#invitation' },
+  { name: 'Our Story', href: '#story' },
+  { name: 'Gallery', href: '#gallery' },
+  { name: 'Schedule', href: '#schedule' },
+  { name: 'Venue', href: '#venue' },
+  { name: 'RSVP', href: '#rsvp' },
+];
 
 export default function Navbar() {
-  const { language } = useLanguage();
-  const t = content[language].nav;
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 60);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: t.landing, to: '/', hash: '#landing' },
-    { name: t.story, to: '/', hash: '#story' },
-    { name: t.invitation, to: '/', hash: '#invitation' },
-    { name: t.schedule, to: '/', hash: '#schedule' },
-    { name: t.dressCode, to: '/', hash: '#details' },
-    { name: t.accommodation, to: '/details', hash: '#accommodation' },
-    { name: t.thingsToDo, to: '/details', hash: '#things-to-do' },
-    { name: t.faq, to: '/details', hash: '#faq' },
-  ];
-
-  const handleNavClick = (to: string, hash: string) => {
-    setIsMobileMenuOpen(false);
-    
-    if (location.pathname === to) {
-      if (hash) {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    } else {
-      navigate(to);
-      if (hash) {
-        // Wait for navigation to complete before scrolling
-        setTimeout(() => {
-          const element = document.querySelector(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+  const handleNavClick = (href: string) => {
+    setIsMobileOpen(false);
+    const el = document.querySelector(href);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled || location.pathname !== '/' ? 'bg-brand-bg shadow-sm py-4' : 'bg-transparent py-6'}`}>
-      <div className="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        <div className="flex justify-between items-center">
-          <div className="flex-shrink-0">
-            <Link 
-              to="/" 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="font-serif text-2xl tracking-widest text-brand-text whitespace-nowrap"
-            >
-              I & A
-            </Link>
-          </div>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-4 xl:space-x-8">
-            {navLinks.map((link) => (
-              <button 
-                key={link.name} 
-                onClick={() => handleNavClick(link.to, link.hash)}
-                className="text-[10px] lg:text-xs uppercase tracking-[0.1em] xl:tracking-[0.2em] hover:text-brand-accent transition-colors whitespace-nowrap"
-              >
-                {link.name}
-              </button>
-            ))}
-          </div>
+    <nav
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        transition: 'all 0.3s',
+        background: isScrolled ? 'rgba(10, 22, 40, 0.95)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(201, 169, 92, 0.15)' : '1px solid transparent',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          paddingLeft: 'clamp(1.5rem, 5vw, 3rem)',
+          paddingRight: 'clamp(1.5rem, 5vw, 3rem)',
+          paddingTop: isScrolled ? '0.75rem' : '1.25rem',
+          paddingBottom: isScrolled ? '0.75rem' : '1.25rem',
+        }}
+      >
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.5rem', fontWeight: 300, letterSpacing: '0.15em', color: '#F7E8D0' }}
+        >
+          A &amp; V
+        </button>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-brand-text">
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        {/* Desktop */}
+        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+          {navLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => handleNavClick(link.href)}
+              style={{
+                fontSize: '0.7rem',
+                fontWeight: 300,
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: '#F7E8D0',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'color 0.2s',
+                fontFamily: "'Inter', sans-serif",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#C9A95C')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#F7E8D0')}
+            >
+              {link.name}
             </button>
-          </div>
+          ))}
         </div>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#F7E8D0' }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            {isMobileOpen ? (
+              <path d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-brand-bg absolute top-full left-0 w-full shadow-md py-8 px-6 flex flex-col space-y-6">
+      {isMobileOpen && (
+        <div
+          style={{
+            background: 'rgba(10, 22, 40, 0.98)',
+            backdropFilter: 'blur(12px)',
+            borderTop: '1px solid rgba(201, 169, 92, 0.15)',
+            display: 'flex',
+            flexDirection: 'column',
+            paddingLeft: 'clamp(1.5rem, 5vw, 3rem)',
+            paddingRight: 'clamp(1.5rem, 5vw, 3rem)',
+            paddingTop: '1.5rem',
+            paddingBottom: '1.5rem',
+            gap: '1rem',
+          }}
+        >
           {navLinks.map((link) => (
-            <button 
-              key={link.name} 
-              onClick={() => handleNavClick(link.to, link.hash)}
-              className="text-xs uppercase tracking-[0.2em] hover:text-brand-accent transition-colors block text-left"
+            <button
+              key={link.name}
+              onClick={() => handleNavClick(link.href)}
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 300,
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: '#F7E8D0',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                fontFamily: "'Inter', sans-serif",
+              }}
             >
               {link.name}
             </button>
