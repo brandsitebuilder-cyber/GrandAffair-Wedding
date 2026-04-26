@@ -6,21 +6,21 @@ const chapters = [
     subtitle: 'Gala Fundraiser · Winter 2025',
     description:
       'It began under the glittering chandeliers of a Cape Town ballroom. Alexander, a visionary entrepreneur, was the evening\'s keynote speaker. Victoria, a passionate philanthropist, was radiant in a floor-length gown. Their eyes met across the room, and a simple conversation became an all-night dance.',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop',
+    image: '/images/story-meeting.jpg',
   },
   {
     title: 'The First Date',
     subtitle: 'Bree Street · Cape Town',
     description:
       'What started as coffee at a small Bree Street café turned into hours of laughter, shared dreams, and a sunset stroll along the Sea Point promenade. They discovered a connection neither could deny — an effortless rhythm that felt like coming home.',
-    image: 'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?q=80&w=1974&auto=format&fit=crop',
+    image: '/images/story-firstdate.jpg',
   },
   {
     title: 'The Proposal',
     subtitle: 'Chapman\'s Peak · March 2026',
     description:
       'Atop Chapman\'s Peak Drive with the Atlantic Ocean glittering below, Alexander dropped to one knee as the sun set in a blaze of orange and gold. Victoria\'s tearful "yes" echoed across the cliffs — the beginning of their forever.',
-    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=2069&auto=format&fit=crop',
+    image: '/images/story-proposal.jpg',
   },
 ];
 

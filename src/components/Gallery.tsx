@@ -2,28 +2,28 @@ import React from 'react';
 
 const galleryImages = [
   {
-    url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop',
-    alt: 'Couple silhouette sunset',
+    url: '/images/gallery-1.jpg',
+    alt: 'Couple in golden hour',
   },
   {
-    url: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop',
-    alt: 'Engagement rings',
+    url: '/images/gallery-2.jpg',
+    alt: 'Engagement rings detail',
   },
   {
-    url: 'https://images.unsplash.com/photo-1529636798458-92182e662485?q=80&w=2069&auto=format&fit=crop',
-    alt: 'Wedding details',
+    url: '/images/gallery-3.jpg',
+    alt: 'Wedding details close-up',
   },
   {
-    url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop',
-    alt: 'Ballroom',
+    url: '/images/gallery-4.jpg',
+    alt: 'Romantic couple portrait',
   },
   {
-    url: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=2070&auto=format&fit=crop',
-    alt: 'Bouquet',
+    url: '/images/gallery-5.jpg',
+    alt: 'Bridal bouquet detail',
   },
   {
-    url: 'https://images.unsplash.com/photo-1415025148099-17fe74102b28?q=80&w=2074&auto=format&fit=crop',
-    alt: 'Romantic dinner',
+    url: '/images/gallery-6.jpg',
+    alt: 'Romantic sunset scene',
   },
 ];
 

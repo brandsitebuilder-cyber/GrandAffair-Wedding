@@ -65,7 +65,7 @@ export default function VenueDetails() {
           {/* Venue Image */}
           <div style={{ flex: 1, overflow: 'hidden', boxShadow: '0 12px 40px rgba(10, 22, 40, 0.12)', minHeight: '450px' }}>
             <img
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop"
+              src="/images/venue.jpg"
               alt="Mount Nelson Hotel"
               style={{
                 width: '100%',
